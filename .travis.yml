@@ -1,2 +1,22 @@
 language: go
-script: make bin
+script: TESTARGS=-v make bin
+deploy:
+  provider: releases
+  api_key:
+    secure: RxajkAOnB89bC9aTKpXbFKgvsURM1q3KiNhP2ZGIrpnmCS/IXFI0cJhDGsAnLtiptGVkU0a9dI8X4npQW3fnk41sutU1v64SToe6YVieDY4nO15nAESGjwIGg87jhreY+4rS4tRfmVQXFhBqQtqqxToathgvIdC+N58BWA16bNCY7ZAFb6TwqJv1WM3b5QE8pUwpm6c8+gb1jCNZ0qexpNMcbGjNvsSuBjweYDuYORjSPnnzFhSxcNB9mP3u9LlzcJZMIwKaioqMULvYe200lZtouTxqYpNK2uyfF0SkeS0ZXBNwmkKLGKIkgHA9VpJxwzciho1rlgTfRUtmfsmutsWu3o6rK9EPRSadalXtQyzWl4s5E1nnrxV2Ug6jhikU7PMYHTKYVGabJbRnyF1b/Z8NhMeIhrWjNb0gFi2zdN6SlXP/oYDYipVSl+Y0dK+RlZ4C/8Yl8IZ5t2y7/CH8XI9rgslV06VFY5IG/i/VgzOS9bboPTyeYokmTmsVU11ItZ8AIwIs/U2p6Dqcs3t+zaQegHI7aQ9y8zNRM+deHBiaCKHUgQGHZLHtEbb47BdHl16Wns1ixjHTYvStHO9AQcf7Ph5xr+VP15sNwVkAdZ/15IYT17gEK5DY3OgxdZdwm+pSOVh1QmJyCqhAAz2iZY2GjrrnrM0DYKQg1UI9YFs=
+  file:
+    - pkg/darwin_amd64.zip
+    - pkg/freebsd_386.zip
+    - pkg/freebsd_amd64.zip
+    - pkg/freebsd_arm.zip
+    - pkg/linux_386.zip
+    - pkg/linux_amd64.zip
+    - pkg/linux_arm.zip
+    - pkg/openbsd_386.zip
+    - pkg/openbsd_amd64.zip
+    - pkg/solaris_amd64.zip
+    - pkg/windows_386.zip
+    - pkg/windows_amd64.zip
+  on:
+    repo: ve-interactive/influx-protector
+    tags: true
