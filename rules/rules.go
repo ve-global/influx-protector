@@ -5,6 +5,7 @@ import "github.com/influxdata/influxdb/influxql"
 // Options for applying rules
 type Options struct {
 	MaxBuckets int
+	SlowQuery  int64
 }
 
 // RunRules runs the validation rules against the statement
