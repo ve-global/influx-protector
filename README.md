@@ -1,6 +1,8 @@
 Influxdb Protector
 ---
 
+[ ![Build Status](https://travis-ci.org/ve-interactive/influx-protector.svg?branch=master)](https://travis-ci.org/ve-interactive/influx-protector)
+
 Inspired by [Protector](https://github.com/trivago/Protector). A proxy written in Golang that will protect influxdb from silly or dangerous queries.
 
 - Queries loading lots of data points (threshold is configurable)
