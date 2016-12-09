@@ -7,5 +7,12 @@ Inspired by [Protector](https://github.com/trivago/Protector). A proxy written i
 - Queries dropping, altering or otherwise messing with the database
 - Show Measurements queries
 - Queries with short source regexes (i.e. likely to match lots of series)
-- Queries loading raw data (i.e. without aggregation)
 - Queries without a where clause
+
+
+## Options
+
+- target: target server `--target http://127.0.0.1:8086`
+- port: port to run on `--port 8087`
+- verbose: log all queries `--verbose`
+- maxbuckets: max number of data points for a single query: `--maxbuckets 1400`

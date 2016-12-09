@@ -7,9 +7,7 @@ import (
 	"github.com/influxdata/influxdb/influxql"
 )
 
-const maxBuckets = 200
-
-func validateDataPoints(query influxql.Statement) error {
+func validateDataPoints(query influxql.Statement, options *Options) error {
 	now := time.Now().UTC()
 
 	if stmt, ok := query.(*influxql.SelectStatement); ok {
@@ -30,8 +28,8 @@ func validateDataPoints(query influxql.Statement) error {
 			return err
 		}
 
-		if buckets > maxBuckets {
-			return fmt.Errorf("max-select-buckets limit exceeded: (%d/%d)", buckets, maxBuckets)
+		if buckets > options.MaxBuckets {
+			return fmt.Errorf("max-select-buckets limit exceeded: (%d/%d)", buckets, options.MaxBuckets)
 		}
 
 		return nil

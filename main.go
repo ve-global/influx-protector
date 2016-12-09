@@ -34,6 +34,8 @@ func main() {
 		defaultVerboseUsage = "--verbose"
 		defaultVersion      = false
 		defaultVersionUsage = "--version"
+		defaultBuckets      = 2000
+		defaultBucketsUsage = "default buckets 2000"
 	)
 
 	// flags
@@ -41,6 +43,7 @@ func main() {
 	target := flag.String("target", defaultTarget, defaultTargetUsage)
 	verbose := flag.Bool("verbose", defaultVerbose, defaultVerboseUsage)
 	vsn := flag.Bool("version", defaultVersion, defaultVersionUsage)
+	maxbuckets := flag.Int("maxbuckets", defaultBuckets, defaultBucketsUsage)
 
 	flag.Parse()
 
@@ -56,6 +59,10 @@ func main() {
 	purl, _ := url.Parse(*target)
 	proxy := httputil.NewSingleHostReverseProxy(purl)
 
+	options := &rules.Options{
+		MaxBuckets: *maxbuckets,
+	}
+
 	// server
 	http.HandleFunc("/query", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Influx-Protector-Version", version.Version)
@@ -67,7 +74,7 @@ func main() {
 			return
 		}
 
-		if err := rules.RunRules(query); err != nil {
+		if err := rules.RunRules(query, options); err != nil {
 			writeError(inputQuery, err, w)
 			return
 		}
