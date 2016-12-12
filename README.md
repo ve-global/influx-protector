@@ -19,3 +19,8 @@ Inspired by [Protector](https://github.com/trivago/Protector). A proxy written i
 - verbose: log all queries `--verbose`
 - maxbuckets: max number of data points for a single query: `--maxbuckets 1400`
 - slowqueries: set slow queries threshold (milliseconds): `--slowqueries 1000`
+
+## Supported endpoints
+
+- `/query?q=...`
+- `/ping`

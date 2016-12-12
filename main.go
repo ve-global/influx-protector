@@ -93,6 +93,11 @@ func main() {
 		proxy.ServeHTTP(w, r)
 	})
 
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Influx-Protector-Version", version.Version)
+		proxy.ServeHTTP(w, r)
+	})
+
 	http.ListenAndServe(*port, nil)
 }
 
