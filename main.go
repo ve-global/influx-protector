@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -81,6 +83,8 @@ func main() {
 
 	http.HandleFunc("/ping", pingFunc(logger, options, proxy))
 
+	http.HandleFunc("/write", writeFunc(logger, options, proxy))
+
 	http.ListenAndServe(*port, nil)
 }
 
@@ -109,7 +113,7 @@ func queryFunc(logger *logger.Logger, options *rules.Options, proxy *httputil.Re
 		setHeaders(w)
 		inputQuery := strings.TrimSpace(r.URL.Query().Get("q"))
 		defer logger.Query(time.Now(), inputQuery, options)
-		defer metrics.MeasureSince([]string{"queries.timing"}, time.Now())
+		defer metrics.MeasureSince([]string{"queries", "timing"}, time.Now())
 
 		query, err := influxql.NewParser(strings.NewReader(inputQuery)).ParseStatement()
 
@@ -135,6 +139,26 @@ func queryFunc(logger *logger.Logger, options *rules.Options, proxy *httputil.Re
 func pingFunc(logger *logger.Logger, options *rules.Options, proxy *httputil.ReverseProxy) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		setHeaders(w)
+		proxy.ServeHTTP(w, r)
+	}
+}
+
+func writeFunc(logger *logger.Logger, options *rules.Options, proxy *httputil.ReverseProxy) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		setHeaders(w)
+		defer metrics.MeasureSince([]string{"writes", "timing"}, time.Now())
+
+		buf, _ := ioutil.ReadAll(r.Body)
+		rdr1 := ioutil.NopCloser(bytes.NewBuffer(buf))
+
+		body := string(buf[:len(buf)])
+		lines := strings.Split(body, "\n")
+		r.Body = rdr1
+
+		datapoints := float32(len(lines))
+		metrics.IncrCounter([]string{"writes", "points"}, datapoints)
+		metrics.SetGauge([]string{"writes", "batchsize"}, datapoints)
+
 		proxy.ServeHTTP(w, r)
 	}
 }
