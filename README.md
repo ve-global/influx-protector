@@ -25,3 +25,4 @@ Inspired by [Protector](https://github.com/trivago/Protector). A proxy written i
 
 - `/query?q=...`
 - `/ping`
+- `/write`
