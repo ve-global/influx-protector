@@ -1,13 +1,13 @@
 # Stolen from the nice folks at hashicorp: https://github.com/hashicorp/terraform/blob/master/Makefile
 
-TEST?=./...
+TEST?=./rules
 VETARGS?=-all
 GOFMT_FILES?=$$(find . -name '*.go')
 
 default: test vet
 
 deps:
-	go get
+	godep restore
 
 # bin generates the releaseable binaries
 bin: deps fmt test

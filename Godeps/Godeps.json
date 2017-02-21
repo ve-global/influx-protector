@@ -1,0 +1,41 @@
+{
+	"ImportPath": "github.com/ve-interactive/influx-protector",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/armon/go-metrics",
+			"Rev": "93f237eba9b0602f3e73710416558854a81d9337"
+		},
+		{
+			"ImportPath": "github.com/gogo/protobuf/proto",
+			"Comment": "v0.3-151-g3ea128a",
+			"Rev": "3ea128ab69017b2bb9720f38a32e2dcfc22c0546"
+		},
+		{
+			"ImportPath": "github.com/influxdata/influxdb/influxql",
+			"Comment": "v1.1.0-rc1-20-g64c2d70",
+			"Rev": "64c2d704da7acbc302fb4ddc8c8bd9e941bc4b1e"
+		},
+		{
+			"ImportPath": "github.com/influxdata/influxdb/influxql/internal",
+			"Comment": "v1.1.0-rc1-20-g64c2d70",
+			"Rev": "64c2d704da7acbc302fb4ddc8c8bd9e941bc4b1e"
+		},
+		{
+			"ImportPath": "github.com/influxdata/influxdb/influxql/neldermead",
+			"Comment": "v1.1.0-rc1-20-g64c2d70",
+			"Rev": "64c2d704da7acbc302fb4ddc8c8bd9e941bc4b1e"
+		},
+		{
+			"ImportPath": "github.com/influxdata/influxdb/models",
+			"Comment": "v1.1.0-rc1-20-g64c2d70",
+			"Rev": "64c2d704da7acbc302fb4ddc8c8bd9e941bc4b1e"
+		},
+		{
+			"ImportPath": "github.com/influxdata/influxdb/pkg/escape",
+			"Comment": "v1.1.0-rc1-20-g64c2d70",
+			"Rev": "64c2d704da7acbc302fb4ddc8c8bd9e941bc4b1e"
+		}
+	]
+}
