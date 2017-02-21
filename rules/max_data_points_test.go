@@ -10,10 +10,6 @@ const queryWith86400Buckets = "select sum(value) from \"foo\" where time > now()
 const queryWith144Buckets = "select sum(value) from \"foo\" where time > now() - 24h group by time(10m)"
 const queryWithoutGroupBy = "select sum(value) from \"foo\" where time > now() - 24h"
 
-var options = &Options{
-	MaxBuckets: 200,
-}
-
 func TestValidateDataPointsMax(t *testing.T) {
 	query := parseQuery(t, queryWith86400Buckets)
 	err := validateDataPoints(query, options)
