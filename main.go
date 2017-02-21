@@ -38,6 +38,8 @@ const (
 	defaultVersionUsage       = "--version"
 	defaultBuckets            = 1000
 	defaultBucketsUsage       = "default buckets 1000"
+	defaultMaxDuration        = time.Hour * 24 * 90
+	defaultMaxDurationUsage   = "default max duration 2160h (90 days)"
 	defaultSlowQuery          = 1000
 	defaultSlowQueryUsage     = "default slowquery time in milliseconds 1000"
 	defaultStatsdAddress      = "localhost:8125"
@@ -51,6 +53,7 @@ func main() {
 	verbose := flag.Bool("verbose", defaultVerbose, defaultVerboseUsage)
 	vsn := flag.Bool("version", defaultVersion, defaultVersionUsage)
 	maxbuckets := flag.Int("maxbuckets", defaultBuckets, defaultBucketsUsage)
+	maxduration := flag.Duration("maxduration", defaultMaxDuration, defaultMaxDurationUsage)
 	slowquery := flag.Int64("slowquery", defaultSlowQuery, defaultSlowQueryUsage)
 	statsdAddress := flag.String("statsdaddress", defaultStatsdAddress, defaultStatsdAddressUsage)
 
@@ -74,8 +77,9 @@ func main() {
 	proxy := httputil.NewSingleHostReverseProxy(purl)
 
 	options := &rules.Options{
-		MaxBuckets: *maxbuckets,
-		SlowQuery:  *slowquery,
+		MaxBuckets:  *maxbuckets,
+		SlowQuery:   *slowquery,
+		MaxDuration: *maxduration,
 	}
 
 	// server
