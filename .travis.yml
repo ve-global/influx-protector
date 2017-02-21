@@ -1,4 +1,6 @@
 language: go
+before_install:
+  - go get github.com/tools/godep
 script: TESTARGS=-v make bin
 deploy:
   provider: releases
