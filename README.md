@@ -18,6 +18,7 @@ Inspired by [Protector](https://github.com/trivago/Protector). A proxy written i
 - port: port to run on `--port 8087`
 - verbose: log all queries `--verbose`
 - maxbuckets: max number of data points for a single query: `--maxbuckets 1400`
+- maxduration: max duration for a single query (`--maxduration 24h`)
 - slowqueries: set slow queries threshold (milliseconds): `--slowqueries 1000`
 - statsdaddress: send telemetry to a statsd server: `--statsdaddress localhost:8125`
 
